@@ -3,6 +3,7 @@ const { default: mongoose } = require("mongoose")
 const dotenv = require("dotenv").config()
 const morgan = require("morgan") // a middleware library
 const connectDB = require("./config/connectDB")
+const Product = require("./models/productModel") 
 const app =express()
 
 const api = process.env.API_URL
@@ -20,9 +21,21 @@ app.get(`${api}/products`,(req, res)=>{
     res.send(product)
 })
 app.post(`${api}/products`,(req, res)=>{
-    const newproduct = req.body;
-    console.log(newproduct);
-    res.send(newproduct)
+    const product = new Product({
+        name:req.body.name,
+        image:req.body.image,
+        countInStock:req.body.countInStock, 
+    })
+    product.save().then((createdProduct=>{
+        res.status(201).json(createdProduct)
+    })).catch((err)=>{
+        res.status(500).json({
+            error:err,
+            success:false
+        })
+    })
+    
+    
 })
 
 const PORT = process.env.MONGO_URI || 5000
