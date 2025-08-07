@@ -1,10 +1,12 @@
 const express = require("express")
 const dotenv = require("dotenv").config()
+const morgan = require("morgan") // a middleware library
 const app =express()
 
 const api = process.env.API_URL
 //middleware
 app.use(express.json())
+app.use(morgan('tiny'))
 
 //routes
 app.get(`${api}/products`,(req, res)=>{
