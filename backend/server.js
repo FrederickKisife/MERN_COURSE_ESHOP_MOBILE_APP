@@ -3,6 +3,8 @@ const dotenv = require("dotenv").config()
 const app =express()
 
 const api = process.env.API_URL
+//middleware
+app.use(express.json())
 
 //routes
 app.get(`${api}/products`,(req, res)=>{
@@ -12,6 +14,11 @@ app.get(`${api}/products`,(req, res)=>{
         image:"Some_Url",
     }
     res.send(product)
+})
+app.post(`${api}/products`,(req, res)=>{
+    const newproduct = req.body;
+    console.log(newproduct);
+    res.send(newproduct)
 })
 
 
