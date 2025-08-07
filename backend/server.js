@@ -25,12 +25,13 @@ app.post(`${api}/products`,(req, res)=>{
     res.send(newproduct)
 })
 
+const PORT = process.env.MONGO_URI || 5000
 //setting the connection with the mongodb 
 mongoose
     .connect(process.env.MONGO_URI)
     .then(()=>{
         connectDB()
-        app.listen(5000, ()=>{
+        app.listen(PORT, ()=>{
         console.log(api);
     
         console.log(`Server Running 5000`);
