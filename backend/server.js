@@ -1,15 +1,19 @@
 const express = require("express")
-require("dotenv/config")
+const dotenv = require("dotenv").config()
 const app =express()
 
+const api = process.env.API_URL
+
 //routes
-app.get("/",(req, res)=>{
+app.get(api+"/products",(req, res)=>{
     res.send("Api created")
 })
 
-const api = API_URL || 5000
 
-app.listen(api, ()=>{
-    console.log(`Server Running on port :${api}`);
+
+app.listen(5000, ()=>{
+    console.log(api);
+    
+    console.log(`Server Running 5000`);
     
 })
