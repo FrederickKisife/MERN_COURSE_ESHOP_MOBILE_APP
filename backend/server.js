@@ -1,6 +1,8 @@
 const express = require("express")
+const { default: mongoose } = require("mongoose")
 const dotenv = require("dotenv").config()
 const morgan = require("morgan") // a middleware library
+const connectDB = require("./config/connectDB")
 const app =express()
 
 const api = process.env.API_URL
@@ -23,11 +25,17 @@ app.post(`${api}/products`,(req, res)=>{
     res.send(newproduct)
 })
 
-
-
-app.listen(5000, ()=>{
-    console.log(api);
+//setting the connection with the mongodb 
+mongoose
+    .connect(process.env.MONGO_URI)
+    .then(()=>{
+        connectDB()
+        app.listen(5000, ()=>{
+        console.log(api);
     
-    console.log(`Server Running 5000`);
+        console.log(`Server Running 5000`);
     
-})
+        })
+    })
+    .catch(err=>console.log(err)) 
+
