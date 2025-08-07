@@ -5,8 +5,13 @@ const app =express()
 const api = process.env.API_URL
 
 //routes
-app.get(api+"/products",(req, res)=>{
-    res.send("Api created")
+app.get(`${api}/products`,(req, res)=>{
+    const product = {
+        id: 1,
+        name: "Pizza",
+        image:"Some_Url",
+    }
+    res.send(product)
 })
 
 
